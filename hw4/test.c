@@ -3,37 +3,42 @@
 
 int main()
 {
-    int *int_array, i;
-    long *long_array;
-    double *double_array;
-    float *float_array;
-    int_array = mymalloc(3 * sizeof(int));
-    printf("mymalloc allocated a integer array of size 3, bellow is their addresses\n");
-    for (i = 0; i < 3; ++i)
-    {
-        printf("%p ", &(int_array[i]));
-    }
+    int i;
+    int *intptr = mymalloc(5 * sizeof(int));
+    char *charptr = mymalloc(20 * sizeof(char));
+    double *doubleptr = mycalloc(5, sizeof(double));
+
+    for (i = 0; i < 5; i++)//set value to intptr
+        intptr[i] = i;
+    for (i = 0; i < 5; i++)//malloc intptr and it's value
+        printf("%d ", intptr[i]);
     printf("\n");
-    long_array = mycalloc(3, sizeof(long));
-    printf("mycalloc allocated a long array of size 3, bellow is their values\n");
-    for (i = 0; i < 3; ++i)
-    {
-        printf("%ld ", long_array[i]);
-    }
+    for (i = 0; i < 5; i++)//malloc intptr 
+        printf("%p ", &(intptr[i]));
     printf("\n");
-    double_array = mymalloc(3 * sizeof(double));
-    printf("mymalloc allocated a double array of size 3\n %p %p %p\n", &double_array[0],&double_array[1],&double_array[2]);
-    float_array = myrealloc(double_array, 3 * sizeof(float));
-    printf("myrealloc reallocated double_array as a float array of size 3, bellow is their addresses\n");
-    for (i = 0; i < 3; ++i)
-    {
-        printf("%p ", &(float_array[i]));
-    }
+    for (i = 0; i < 5; i++)//malloc charptr
+        printf("%p ", &(charptr[i]));
     printf("\n");
-    myfree(int_array);
-    printf("int_array was free\n");
-    myfree(long_array);
-    printf("long_array was free\n");
-    myfree(float_array);
-    printf("float_array was free\n");
+    for (i = 0; i < 5; i++)//calloc doubleptr
+        printf("%p ", &(doubleptr[i]));
+    printf("\n");
+    for (i = 0; i < 5; i++)//all zero
+        printf("%lf ", doubleptr[i]);
+    printf("\n");
+
+    myfree(charptr);//free
+    printf("free charptr to free_list\n");
+
+    int *intptr_2 = myrealloc(intptr, 10 * sizeof(int));
+    int *intptr_3 = mymalloc(3 * sizeof(int));
+
+    for (i = 0; i < 5; i++)//realloc from intptr to intptr_2
+        printf("%p ", &(intptr_2[i]));
+    printf("\n");
+    for (i = 0; i < 5; i++) //realloc from intptr to intptr_2 and it's value
+        printf("%d ", intptr_2[i]);
+    printf("\n");
+    for (i = 0; i < 3; i++) //use free_list space
+        printf("%p ", &(intptr_3[i]));
+    printf("\n");
 }
