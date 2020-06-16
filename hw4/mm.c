@@ -102,7 +102,7 @@ void *mycalloc(size_t nmemb, size_t size)
     size_t all = nmemb * size;
     void *newptr = mymalloc(all);
     if (newptr)
-        memset(newptr, 0, all);
+        memset(newptr, 0, nmemb);       //fixed
 
     return newptr;
 }
