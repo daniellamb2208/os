@@ -23,7 +23,7 @@ void create(int mode)
     int fd;
     struct stat sb; //store state of file (descriptor fd)
 
-    fd = open("mmap.txt", O_RDWR | O_CREAT);
+    fd = open("mmap.txt", O_RDWR | O_CREAT | O_TRUNC, 00777);   //revised file mode 
     if (fd == -1)
         handel_error("opening the file is failure\n");
     if (fstat(fd, &sb) == -1)
